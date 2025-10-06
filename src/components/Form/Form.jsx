@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import css from "../App/style.module.css";
 import Input from "components/Input/Input";
 import Button from "components/Button/Button";
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/operations";
 import { useDispatch, useSelector } from "react-redux";
 import { selectContacts } from "../../redux/selectors";
 
@@ -25,7 +25,7 @@ const Form = () => {
             alert(`${name} is already in contacts.`);
             return
         }
-        dispatch(addContact(name, number));
+        dispatch(addContact({ name, number }));
         setName('');
         setNumber('');
     };

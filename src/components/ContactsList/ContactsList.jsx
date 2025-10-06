@@ -1,9 +1,8 @@
 import React from "react";
-import Button from "components/Button/Button";
 import css from "../App/style.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { selectFilteredContacts } from "../../redux/selectors";
-import { deleteContact } from "../../redux/contactsSlice";
+import { deleteContact } from "../../redux/operations";
 
 
 const ContactsList = () => {
@@ -19,8 +18,8 @@ const ContactsList = () => {
     return newName
   }
   
-  const handlerClick = (evt) => {
-    dispatch(deleteContact(evt.target.name));
+  const handlerClick = (contactId) => {
+    dispatch(deleteContact(contactId));
   };
 
   return (
@@ -28,7 +27,13 @@ const ContactsList = () => {
       {filteredContacts.map(contact => (
         <li key={contact.id}>
           {capitalize(contact.name)}: {contact.number}
-          <Button type="button" name={contact.name} click={handlerClick} className={css.delBtn}>Delete</Button>
+          <button
+            type="button"
+            name={contact.name}
+            onClick={() => handlerClick(contact.id)}
+            className={css.delBtn}>
+          Delete
+          </button>
         </li>
       ))}
     </ul>
